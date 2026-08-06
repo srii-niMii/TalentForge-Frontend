@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import { getApplicants } from "../../services/candidateService";
+import Pipeline from "../../components/recruiter/Pipeline";
 
 
 export default function Applicants() {
@@ -13,11 +14,12 @@ export default function Applicants() {
     const [candidates, setCandidates] = useState([]);
 
 
+
     useEffect(() => {
 
         loadApplicants();
 
-    }, []);
+    }, [jobId]);
 
 
 
@@ -30,7 +32,7 @@ export default function Applicants() {
             setCandidates(data);
 
         }
-        catch(error){
+        catch(error) {
 
             console.log(error);
 
@@ -60,10 +62,12 @@ export default function Applicants() {
                         uppercase
                         tracking-widest
                         text-sm
+                        font-semibold
                         "
                     >
                         TalentForge ATS
                     </p>
+
 
 
                     <h1
@@ -74,8 +78,9 @@ export default function Applicants() {
                         mt-2
                         "
                     >
-                        Applicants
+                        Applicants Pipeline
                     </h1>
+
 
 
                     <p
@@ -84,8 +89,9 @@ export default function Applicants() {
                         mt-2
                         "
                     >
-                        Review candidates for this job opening
+                        Manage candidates through your hiring workflow
                     </p>
+
 
                 </div>
 
@@ -112,7 +118,6 @@ export default function Applicants() {
 
                         </div>
 
-
                     )
 
 
@@ -121,146 +126,18 @@ export default function Applicants() {
 
                     (
 
-                    <div
-                        className="
-                        grid
-                        grid-cols-1
-                        md:grid-cols-2
-                        lg:grid-cols-3
-                        gap-6
-                        "
-                    >
+                        <Pipeline
 
+                            candidates={candidates}
 
-                    {
-                        candidates.map(candidate => (
+                            onRefresh={loadApplicants}
 
-
-                            <div
-
-                                key={candidate.id}
-
-                                className="
-                                bg-[#1e1e2c]
-                                rounded-2xl
-                                p-6
-                                shadow-lg
-                                hover:-translate-y-1
-                                transition
-                                "
-
-                            >
-
-
-                                <h2
-                                    className="
-                                    text-xl
-                                    font-semibold
-                                    text-white
-                                    "
-                                >
-
-                                    {candidate.name}
-
-                                </h2>
-
-
-                                <p
-                                    className="
-                                    text-slate-400
-                                    mt-2
-                                    "
-                                >
-
-                                    {candidate.email}
-
-                                </p>
-
-
-
-                                <p
-                                    className="
-                                    text-slate-400
-                                    "
-                                >
-
-                                    {candidate.phone}
-
-                                </p>
-
-
-
-                                <div
-                                    className="
-                                    mt-5
-                                    "
-                                >
-
-                                    <span
-                                        className="
-                                        bg-violet-500/20
-                                        text-violet-400
-                                        px-3
-                                        py-1
-                                        rounded-full
-                                        text-sm
-                                        "
-                                    >
-
-                                        {candidate.currentStage}
-
-                                    </span>
-
-                                </div>
-
-
-
-                                {
-                                    candidate.resumeUrl &&
-
-                                    (
-
-                                    <a
-
-                                        href={candidate.resumeUrl}
-
-                                        target="_blank"
-
-                                        className="
-                                        block
-                                        text-center
-                                        mt-6
-                                        bg-violet-600
-                                        hover:bg-violet-700
-                                        text-white
-                                        py-2
-                                        rounded-xl
-                                        "
-
-                                    >
-
-                                        View Resume
-
-                                    </a>
-
-                                    )
-
-                                }
-
-
-
-                            </div>
-
-
-                        ))
-                    }
-
-
-                    </div>
+                        />
 
                     )
 
                 }
+
 
 
             </div>
