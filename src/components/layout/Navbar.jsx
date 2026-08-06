@@ -4,7 +4,7 @@ export default function Navbar() {
 
         <nav
             className="
-            bg-white
+         bg-[#0B1220]
             shadow-sm
             px-6
             py-4
@@ -18,7 +18,7 @@ export default function Navbar() {
                 className="
                 text-2xl
                 font-bold
-                text-blue-600
+                text-violet-600
                 "
             >
                 TalentForge

@@ -33,3 +33,31 @@ export const closeJob = async (id) => {
     );
     return response.data;
 };
+
+
+
+export const getJobById = async (id) => {
+
+    const response =
+        await axiosInstance.get(`/jobs/${id}`);
+
+    return response.data;
+
+};
+
+
+
+export const updateJob = async (
+    id,
+    jobData
+) => {
+
+    const response =
+        await axiosInstance.put(
+            `/jobs/${id}`,
+            jobData
+        );
+
+    return response.data;
+
+};

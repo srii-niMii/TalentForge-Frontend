@@ -1,15 +1,14 @@
 import Navbar from "./Navbar";
 
-
-export default function DashboardLayout({children}) {
-
+export default function DashboardLayout({ children }) {
 
     return (
 
         <div
             className="
             min-h-screen
-            bg-gray-100
+            bg-[#0B1220]
+            text-slate-100
             "
         >
 

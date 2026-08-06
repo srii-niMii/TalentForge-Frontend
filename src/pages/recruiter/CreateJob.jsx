@@ -14,15 +14,12 @@ export default function CreateJob() {
 
         title: "",
         description: "",
-        location: "",
-        salary: "",
-        employmentType: ""
+        department: ""
 
     });
 
 
     const [loading, setLoading] = useState(false);
-
 
     const [error, setError] = useState("");
 
@@ -47,6 +44,7 @@ export default function CreateJob() {
         e.preventDefault();
 
         setError("");
+
         setLoading(true);
 
 
@@ -59,6 +57,8 @@ export default function CreateJob() {
 
         }
         catch(error) {
+
+            console.log(error);
 
             setError(
                 "Failed to create job"
@@ -90,9 +90,9 @@ export default function CreateJob() {
 
                 <div
                     className="
-                    bg-white
+                    bg-[#0B1220]
                     rounded-2xl
-                    shadow
+                    shadow-xl
                     p-6
                     md:p-8
                     "
@@ -103,6 +103,7 @@ export default function CreateJob() {
                         className="
                         text-3xl
                         font-bold
+                        text-white
                         mb-2
                         "
                     >
@@ -110,9 +111,10 @@ export default function CreateJob() {
                     </h1>
 
 
+
                     <p
                         className="
-                        text-gray-500
+                        text-gray-400
                         mb-6
                         "
                     >
@@ -126,14 +128,16 @@ export default function CreateJob() {
 
                             <div
                                 className="
-                                bg-red-100
-                                text-red-600
+                                bg-red-500/20
+                                text-red-400
                                 p-3
                                 rounded-lg
                                 mb-5
                                 "
                             >
+
                                 {error}
+
                             </div>
 
                         )
@@ -150,11 +154,13 @@ export default function CreateJob() {
 
 
 
-                        <div>
+                        {/* Job Title */}
 
+                        <div>
 
                             <label
                                 className="
+                                text-gray-200
                                 font-medium
                                 "
                             >
@@ -175,30 +181,35 @@ export default function CreateJob() {
                                 className="
                                 mt-2
                                 w-full
+                                bg-[#111827]
+                                text-white
                                 border
+                                border-gray-700
                                 rounded-lg
                                 px-4
                                 py-3
-                                focus:ring-2
-                                focus:ring-blue-500
                                 outline-none
+                                focus:ring-2
+                                focus:ring-violet-500
                                 "
 
                                 required
 
                             />
 
-
                         </div>
 
 
 
 
-                        <div>
 
+                        {/* Description */}
+
+                        <div>
 
                             <label
                                 className="
+                                text-gray-200
                                 font-medium
                                 "
                             >
@@ -221,167 +232,73 @@ export default function CreateJob() {
                                 className="
                                 mt-2
                                 w-full
+                                bg-[#111827]
+                                text-white
                                 border
+                                border-gray-700
                                 rounded-lg
                                 px-4
                                 py-3
                                 outline-none
                                 focus:ring-2
-                                focus:ring-blue-500
+                                focus:ring-violet-500
                                 "
 
                                 required
 
                             />
 
-
                         </div>
 
 
 
 
-                        <div
-                            className="
-                            grid
-                            grid-cols-1
-                            md:grid-cols-2
-                            gap-5
-                            "
-                        >
 
-
-                            <div>
-
-                                <label
-                                    className="
-                                    font-medium
-                                    "
-                                >
-                                    Location
-                                </label>
-
-
-                                <input
-
-                                    name="location"
-
-                                    value={job.location}
-
-                                    onChange={handleChange}
-
-                                    placeholder="Remote / Delhi"
-
-                                    className="
-                                    mt-2
-                                    w-full
-                                    border
-                                    rounded-lg
-                                    px-4
-                                    py-3
-                                    "
-
-                                />
-
-
-                            </div>
-
-
-
-                            <div>
-
-
-                                <label
-                                    className="
-                                    font-medium
-                                    "
-                                >
-                                    Salary
-                                </label>
-
-
-                                <input
-
-                                    name="salary"
-
-                                    value={job.salary}
-
-                                    onChange={handleChange}
-
-                                    placeholder="80000"
-
-                                    className="
-                                    mt-2
-                                    w-full
-                                    border
-                                    rounded-lg
-                                    px-4
-                                    py-3
-                                    "
-
-                                />
-
-
-                            </div>
-
-
-                        </div>
-
-
-
+                        {/* Department */}
 
                         <div>
 
-
                             <label
                                 className="
+                                text-gray-200
                                 font-medium
                                 "
                             >
-                                Employment Type
+                                Department
                             </label>
 
 
-                            <select
+                            <input
 
-                                name="employmentType"
+                                name="department"
 
-                                value={job.employmentType}
+                                value={job.department}
 
                                 onChange={handleChange}
+
+                                placeholder="Engineering"
 
                                 className="
                                 mt-2
                                 w-full
+                                bg-[#111827]
+                                text-white
                                 border
+                                border-gray-700
                                 rounded-lg
                                 px-4
                                 py-3
+                                outline-none
+                                focus:ring-2
+                                focus:ring-violet-500
                                 "
-                            >
 
-                                <option value="">
-                                    Select type
-                                </option>
+                                required
 
-                                <option value="FULL_TIME">
-                                    Full Time
-                                </option>
-
-
-                                <option value="PART_TIME">
-                                    Part Time
-                                </option>
-
-
-                                <option value="INTERNSHIP">
-                                    Internship
-                                </option>
-
-
-                            </select>
-
+                            />
 
                         </div>
+
 
 
 
@@ -394,8 +311,8 @@ export default function CreateJob() {
 
                             className="
                             w-full
-                            bg-blue-600
-                            hover:bg-blue-700
+                            bg-violet-600
+                            hover:bg-violet-700
                             text-white
                             py-3
                             rounded-xl
