@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Navbar() {
+
+    const navigate = useNavigate();
 
     return (
 
@@ -24,20 +28,18 @@ export default function Navbar() {
                 TalentForge
             </h1>
 
-
-            <button
-                className="
+            <span className="
                 bg-red-500
                 hover:bg-red-600
                 text-white
                 px-4
                 py-2
                 rounded-lg
-                transition
-                "
-            >
-                Logout
-            </button>
+                transition ">
+                <button onClick={() => navigate("/login")} style={{ cursor: "pointer" }}>
+                    Logout
+                </button>
+            </span>
 
 
         </nav>

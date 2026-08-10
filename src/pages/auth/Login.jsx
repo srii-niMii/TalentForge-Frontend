@@ -64,7 +64,7 @@ export default function Login() {
             flex
             items-center
             justify-center
-             bg-gray-800
+            bg-gray-800
             px-4
             "
         >
@@ -230,7 +230,7 @@ export default function Login() {
 
 
 
-                    <button
+                    <button style={{ cursor: "pointer" }}
 
                         type="submit"
 
@@ -281,7 +281,9 @@ export default function Login() {
                         cursor-pointer
                         "
                     >
-                        Register
+                        <button onClick={() => navigate("/register")} style={{ cursor: "pointer" }}>
+                            Register
+                        </button>
                     </span>
 
                 </p>

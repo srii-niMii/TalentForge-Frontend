@@ -1,10 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "../pages/auth/Login";
 import RecruiterDashboard from "../pages/recruiter/Dashboard";
 import CreateJob from "../pages/recruiter/CreateJob";
 import EditJob from "../pages/recruiter/EditJob";
 import Applicants from "../pages/recruiter/Applicants";
+import CandidateProfile from "../pages/recruiter/CandidateProfile";
+import CandidateDashboard from "../pages/candidate/CandidateDashboard";
+import CandidateRegister from "../pages/auth/CandidateRegister";
+import RecruiterRegister from "../pages/auth/RecruiterRegister";
+import Register from "../pages/auth/Register";
 
 export default function AppRoutes() {
 
@@ -13,9 +18,30 @@ export default function AppRoutes() {
 
             <Routes>
 
+                 <Route
+                    path="/"
+                    element={<Navigate to="/register"/>}
+                />
+
+                <Route
+                    path="/register"
+                    element={<Register />}
+                />
+
+
                 <Route
                     path="/login"
                     element={<Login />}
+                />
+
+                <Route
+                    path="/register/candidate"
+                    element={<CandidateRegister />}
+                />
+
+                <Route
+                    path="/register/recruiter"
+                    element={<RecruiterRegister />}
                 />
 
                 <Route
@@ -34,14 +60,26 @@ export default function AppRoutes() {
                 />
 
 
-            <Route
+                <Route
 
-                path="/recruiter/jobs/:jobId/applicants"
+                    path="/recruiter/jobs/:jobId/applicants"
 
-                element={<Applicants />}
+                    element={<Applicants />}
 
-            />
-             </Routes>
+                />
+
+                <Route
+                    path="/recruiter/candidate/:id"
+                    element={<CandidateProfile />}
+                />
+
+                <Route
+                    path="/candidate/dashboard"
+                    element={
+                        <CandidateDashboard />
+                    }
+                />
+            </Routes>
 
         </BrowserRouter>
     );

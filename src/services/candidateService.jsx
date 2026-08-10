@@ -16,5 +16,16 @@ export const updateCandidateStage = async (id, stageData) => {
     );
 
     return response.data;
+};
+
+    export const getCandidate = async (id) => {
+
+    const response = await axiosInstance.get(
+        `/candidates/${id}`
+    );
+
+    return response.data;
+
+
 
 };

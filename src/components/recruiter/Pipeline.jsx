@@ -1,6 +1,5 @@
 import { updateCandidateStage } from "../../services/candidateService";
 
-
 const stages = [
     "APPLIED",
     "SCREENING",
@@ -9,45 +8,32 @@ const stages = [
     "REJECTED"
 ];
 
-
 export default function Pipeline({
     candidates,
-    onRefresh
+    onRefresh,
+    setSelectedResume
 }) {
 
-
-    const moveCandidate = async (
-        candidate,
-        stage
-    ) => {
-
+    const moveCandidate = async (candidate, stage) => {
 
         try {
 
-
-            await updateCandidateStage(
-                candidate.id,
-                {
-                    stage: stage,
-                    changedBy: "Recruiter",
-                    note: "Stage updated from pipeline"
-                }
-            );
-
+            await updateCandidateStage(candidate.id, {
+                stage,
+                changedBy: "Recruiter",
+                note: "Stage updated from pipeline"
+            });
 
             onRefresh();
 
-
         }
-        catch(error){
+        catch (error) {
 
             console.log(error);
 
         }
 
     };
-
-
 
     return (
 
@@ -60,137 +46,143 @@ export default function Pipeline({
             "
         >
 
+            {
+                stages.map(stage => (
 
-        {
-            stages.map(stage => (
-
-                <div
-                    key={stage}
-                    className="
-                    bg-[#111827]
-                    rounded-xl
-                    p-4
-                    min-h-[400px]
-                    "
-                >
-
-
-                    <h2
+                    <div
+                        key={stage}
                         className="
-                        text-white
-                        font-semibold
-                        mb-4
+                        bg-[#111827]
+                        rounded-xl
+                        p-4
+                        min-h-[400px]
                         "
                     >
 
-                        {stage}
+                        <h2
+                            className="
+                            text-white
+                            font-semibold
+                            mb-4
+                            "
+                        >
+                            {stage}
+                        </h2>
 
-                    </h2>
+                        {
+                            candidates
+                                .filter(
+                                    candidate =>
+                                        candidate.currentStage === stage
+                                )
+                                .map(candidate => (
 
+                                    <div
+                                        key={candidate.id}
+                                        className="
+                                        bg-[#1e1e2c]
+                                        p-4
+                                        rounded-xl
+                                        mb-3
+                                        "
+                                    >
 
-
-                    {
-                        candidates
-                        .filter(
-                            candidate =>
-                            candidate.currentStage === stage
-                        )
-                        .map(candidate => (
-
-
-                            <div
-                                key={candidate.id}
-                                className="
-                                bg-[#1e1e2c]
-                                p-4
-                                rounded-xl
-                                mb-3
-                                "
-                            >
-
-
-                                <h3
-                                    className="
-                                    text-white
-                                    font-medium
-                                    "
-                                >
-
-                                    {candidate.name}
-
-                                </h3>
-
-
-                                <p
-                                    className="
-                                    text-sm
-                                    text-gray-400
-                                    "
-                                >
-
-                                    {candidate.email}
-
-                                </p>
-
-
-
-                                <select
-
-                                    className="
-                                    mt-3
-                                    w-full
-                                    bg-gray-800
-                                    text-white
-                                    rounded-lg
-                                    p-2
-                                    "
-
-                                    value={
-                                        candidate.currentStage
-                                    }
-
-                                    onChange={
-                                        (e)=>
-                                        moveCandidate(
-                                            candidate,
-                                            e.target.value
-                                        )
-                                    }
-
-                                >
-
-                                {
-                                    stages.map(item=>(
-
-                                        <option
-                                            key={item}
-                                            value={item}
+                                        <h3
+                                            className="
+                                            text-white
+                                            font-medium
+                                            "
                                         >
-                                            {item}
+                                            {candidate.name}
+                                        </h3>
 
-                                        </option>
+                                        <p
+                                            className="
+                                            text-sm
+                                            text-gray-400
+                                            "
+                                        >
+                                            {candidate.email}
+                                        </p>
 
-                                    ))
-                                }
+                                        <p
+                                            className="
+                                            text-sm
+                                            text-gray-500
+                                            mb-3
+                                            "
+                                        >
+                                            {candidate.phone}
+                                        </p>
 
+                                        <select
+                                            className="
+                                            w-full
+                                            bg-gray-800
+                                            text-white
+                                            rounded-lg
+                                            p-2
+                                            "
+                                            value={candidate.currentStage}
+                                            onChange={(e) =>
+                                                moveCandidate(
+                                                    candidate,
+                                                    e.target.value
+                                                )
+                                            }
+                                        >
 
-                                </select>
+                                            {
+                                                stages.map(item => (
 
+                                                    <option
+                                                        key={item}
+                                                        value={item}
+                                                    >
+                                                        {item}
+                                                    </option>
 
-                            </div>
+                                                ))
+                                            }
 
+                                        </select>
 
-                        ))
-                    }
+                                        {
+                                            candidate.resumeUrl && (
 
+                                                <button
+                                                    onClick={() =>
+                                                        setSelectedResume({
+                                                            url: candidate.resumeUrl,
+                                                            name: candidate.name
+                                                        })
+                                                    }
+                                                    className="
+                                                    w-full
+                                                    mt-3
+                                                    bg-violet-600
+                                                    hover:bg-violet-700
+                                                    text-white
+                                                    py-2
+                                                    rounded-lg
+                                                    transition
+                                                    "
+                                                >
+                                                    📄 Preview Resume
+                                                </button>
 
+                                            )
+                                        }
 
-                </div>
+                                    </div>
 
+                                ))
+                        }
 
-            ))
-        }
+                    </div>
 
+                ))
+            }
 
         </div>
 

@@ -3,36 +3,28 @@ import { useParams } from "react-router-dom";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import { getApplicants } from "../../services/candidateService";
 import Pipeline from "../../components/recruiter/Pipeline";
-
+import ResumeModal from "../../components/recruiter/ResumeModal";
 
 export default function Applicants() {
 
-
     const { jobId } = useParams();
 
-
     const [candidates, setCandidates] = useState([]);
-
-
+    const [selectedResume, setSelectedResume] = useState(null);
 
     useEffect(() => {
-
         loadApplicants();
-
     }, [jobId]);
-
-
 
     const loadApplicants = async () => {
 
         try {
 
             const data = await getApplicants(jobId);
-
             setCandidates(data);
 
         }
-        catch(error) {
+        catch (error) {
 
             console.log(error);
 
@@ -40,15 +32,11 @@ export default function Applicants() {
 
     };
 
-
-
     return (
 
         <DashboardLayout>
 
-
             <div>
-
 
                 <div
                     className="
@@ -68,8 +56,6 @@ export default function Applicants() {
                         TalentForge ATS
                     </p>
 
-
-
                     <h1
                         className="
                         text-4xl
@@ -81,8 +67,6 @@ export default function Applicants() {
                         Applicants Pipeline
                     </h1>
 
-
-
                     <p
                         className="
                         text-slate-400
@@ -92,56 +76,55 @@ export default function Applicants() {
                         Manage candidates through your hiring workflow
                     </p>
 
-
                 </div>
-
-
-
 
                 {
                     candidates.length === 0 ?
 
+                        (
 
-                    (
+                            <div
+                                className="
+                                bg-[#111827]
+                                rounded-xl
+                                p-10
+                                text-center
+                                text-slate-400
+                                "
+                            >
 
-                        <div
-                            className="
-                            bg-[#111827]
-                            rounded-xl
-                            p-10
-                            text-center
-                            text-slate-400
-                            "
-                        >
+                                No applicants found
 
-                            No applicants found
+                            </div>
 
-                        </div>
+                        )
 
-                    )
+                        :
 
+                        (
 
-                    :
+                            <Pipeline
+                                candidates={candidates}
+                                onRefresh={loadApplicants}
+                                setSelectedResume={setSelectedResume}
+                            />
 
-
-                    (
-
-                        <Pipeline
-
-                            candidates={candidates}
-
-                            onRefresh={loadApplicants}
-
-                        />
-
-                    )
+                        )
 
                 }
 
+                {
+                    selectedResume && (
 
+                        <ResumeModal
+                            resume={selectedResume}
+                            onClose={() => setSelectedResume(null)}
+                        />
+
+                    )
+                }
 
             </div>
-
 
         </DashboardLayout>
 
