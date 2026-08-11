@@ -10,6 +10,9 @@ import CandidateDashboard from "../pages/candidate/CandidateDashboard";
 import CandidateRegister from "../pages/auth/CandidateRegister";
 import RecruiterRegister from "../pages/auth/RecruiterRegister";
 import Register from "../pages/auth/Register";
+import CandidateJobs from "../pages/candidate/CandidateJobs";
+import JobDetails from "../pages/candidate/JobDetails";
+import MyApplications from "../pages/candidate/MyApplications";
 
 export default function AppRoutes() {
 
@@ -18,9 +21,9 @@ export default function AppRoutes() {
 
             <Routes>
 
-                 <Route
+                <Route
                     path="/"
-                    element={<Navigate to="/register"/>}
+                    element={<Navigate to="/register" />}
                 />
 
                 <Route
@@ -37,6 +40,21 @@ export default function AppRoutes() {
                 <Route
                     path="/register/candidate"
                     element={<CandidateRegister />}
+                />
+
+                <Route
+                    path="/candidate/jobs"
+                    element={<CandidateJobs />}
+                />
+
+                <Route
+                    path="/candidate/jobs/:id"
+                    element={<JobDetails />}
+                />
+
+                <Route
+                    path="/candidate/applications"
+                    element={<MyApplications />}
                 />
 
                 <Route
